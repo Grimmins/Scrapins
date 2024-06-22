@@ -1,7 +1,6 @@
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.chrome.options import Options
 
-
 def create_driver(is_headless: bool, browser: str):
     if browser == "chrome":
         driver = webdriver.Chrome(options=configure_driver(is_headless))

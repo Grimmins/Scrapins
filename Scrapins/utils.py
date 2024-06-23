@@ -1,4 +1,5 @@
 import json
+import re
 
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome import webdriver
@@ -7,6 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+from typing import Union
 
 def create_driver(is_headless: bool, browser: str):
     """
@@ -69,19 +71,37 @@ def load_html(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-def save_json(output_file: str, data: dict):
+def save_json(data: Union[dict, str], file_name: str):
     """
-    Save the given data as JSON to a file.
+    Enregistre un dictionnaire ou une chaîne de caractères JSON dans un fichier.
 
     Args:
-        output_file (str): The path to the output file where the JSON data should be saved.
-        data (dict): The data to save as JSON.
-
-    Returns:
-        None
+    - data (Union[dict, str]): Les données à enregistrer, soit sous forme de dict, soit de string.
+    - file_name (str): Le nom du fichier dans lequel enregistrer les données JSON.
     """
-    with open(output_file, 'w') as file:
-        json.dump(data, file, indent=4)
+    # Si les données sont une chaîne de caractères, vérifier et convertir les single quotes en double quotes
+    if isinstance(data, str):
+        # Utiliser des expressions régulières pour remplacer les single quotes par des doubles quotes
+        # Remplacer les single quotes autour des clés et des valeurs par des doubles quotes
+        json_string = re.sub(r"(?<!\\)'", '"', data)
+
+        # Charger le JSON pour s'assurer qu'il est valide
+        try:
+            data_dict = json.loads(json_string)
+        except json.JSONDecodeError as e:
+            print(f"Erreur de décodage JSON: {e}")
+            return
+    elif isinstance(data, dict):
+        data_dict = data
+    else:
+        print("Le type de données n'est ni un dictionnaire ni une chaîne JSON valide.")
+        return
+
+    # Enregistrer les données dans un fichier JSON
+    with open(file_name, 'w', encoding='utf-8') as file:
+        json.dump(data_dict, file, ensure_ascii=False, indent=4)
+
+    print(f"Les données ont été enregistrées avec succès dans {file_name}.")
 
 def load_json(file_path: str):
     """

@@ -1,3 +1,5 @@
+import json
+
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -66,6 +68,33 @@ def load_html(file_path: str):
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
+
+def save_json(output_file: str, data: dict):
+    """
+    Save the given data as JSON to a file.
+
+    Args:
+        output_file (str): The path to the output file where the JSON data should be saved.
+        data (dict): The data to save as JSON.
+
+    Returns:
+        None
+    """
+    with open(output_file, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def load_json(file_path: str):
+    """
+    Load and return the JSON data from a file.
+
+    Args:
+        file_path (str): The path to the file containing the JSON data.
+
+    Returns:
+        dict: The JSON data loaded from the file.
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return json.load(file)
 
 def prettify_html_file(input_file: str, output_file: str):
     """

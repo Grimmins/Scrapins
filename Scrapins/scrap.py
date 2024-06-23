@@ -1,7 +1,8 @@
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-def get_el(driver, type, value, timeout):
+def get_el(driver: WebDriver, type: str, value: str, timeout: int):
     """
     Get an element by type and value with a timeout.
 

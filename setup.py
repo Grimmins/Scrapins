@@ -17,7 +17,7 @@ setup(
     description='Une description personnelle pour des outils de Scraping',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/votrecompte/ma_bibliotheque',  # Remplacer par l'URL de votre projet
+    url='https://github.com/Grimmins/Scrapins',  # Remplacer par l'URL de votre projet
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',

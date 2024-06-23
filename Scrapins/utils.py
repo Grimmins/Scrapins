@@ -91,3 +91,17 @@ def prettify_html_file(input_file: str, output_file: str):
     # Write the formatted HTML to the output file
     with open(output_file, 'w', encoding='utf-8') as file:
         file.write(pretty_html)
+
+def log_el_content(el):
+    """
+    Log the content in multiline of an element.
+
+    Args:
+        el (WebElement): The element to log the content of.
+
+    Returns:
+        None
+    """
+    soup = BeautifulSoup(el.get_attribute("outerHTML"), 'html.parser')
+    pretty_html = soup.prettify()
+    print(pretty_html)

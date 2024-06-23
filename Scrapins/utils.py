@@ -71,12 +71,12 @@ def load_html(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-def save_json(data: Union[dict, str], file_name: str):
+def save_json(data: Union[dict, str, list], file_name: str):
     """
-    Enregistre un dictionnaire ou une chaîne de caractères JSON dans un fichier.
+    Enregistre un dictionnaire, une chaîne de caractères JSON ou une liste dans un fichier.
 
     Args:
-    - data (Union[dict, str]): Les données à enregistrer, soit sous forme de dict, soit de string.
+    - data (Union[dict, str, list]): Les données à enregistrer, soit sous forme de dict, de string ou de list.
     - file_name (str): Le nom du fichier dans lequel enregistrer les données JSON.
     """
     # Si les données sont une chaîne de caractères, vérifier et convertir les single quotes en double quotes
@@ -91,10 +91,10 @@ def save_json(data: Union[dict, str], file_name: str):
         except json.JSONDecodeError as e:
             print(f"Erreur de décodage JSON: {e}")
             return
-    elif isinstance(data, dict):
+    elif isinstance(data, (dict, list)):
         data_dict = data
     else:
-        print("Le type de données n'est ni un dictionnaire ni une chaîne JSON valide.")
+        print("Le type de données n'est ni un dictionnaire, ni une liste, ni une chaîne JSON valide.")
         return
 
     # Enregistrer les données dans un fichier JSON

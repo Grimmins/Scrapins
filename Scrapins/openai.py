@@ -2,8 +2,6 @@ import os
 import json
 import openai
 
-
-
 def load_config():
     """Charge et vérifie la coniguation OpenAI depuis un fichier JSON."""
     if not os.path.exists(CONFIG_FILE_PATH):
